@@ -17,7 +17,7 @@ def thick():
     print("   \\    /")
     print("    \\  /")
     print("     \\/")
-
+ 
 def pendu_haut_et_court():
     print("  ____________")
     print("  |      |")

@@ -1,4 +1,3 @@
-
 def normaliser(chaine):
     c = 0
     chaine = chaine.lower()
@@ -21,7 +20,7 @@ def normaliser(chaine):
             chaine = "".join(chaine)
         if i == 'û' or i == 'ù':
             chaine = list(chaine)
-            chaine[c] = 'u'
+            chaine[c] = 'u'd
             chaine = "".join(chaine)
         c += 1
     return chaine
