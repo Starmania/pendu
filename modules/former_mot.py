@@ -23,6 +23,10 @@ def normaliser(chaine):
             chaine = list(chaine)
             chaine[c] = 'u'
             chaine = "".join(chaine)
+        if i == '-':
+            chaine = list(chaine)
+            chaine[c] = ' '
+            chaine = "".join(chaine)
         c += 1
     return chaine
 

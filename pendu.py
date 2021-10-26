@@ -12,30 +12,32 @@ except ImportError:
     print("ERREUR : Impossible de trouver un module nécessaire au bon fonctionnement du programme 'afficher.py'")
     print("Veuillez installer ce module à l'aide du lien ci-joint : https://drive.google.com/drive/folders/1qqgdcED7iRTbQLzQN5xmFI6rV7CamF8R?usp=sharing \net le positionnez dans le même dossier que 'pendu.py'")
     print("Cela peut aussi être causé par l'absence du fichier '__init__.py', veuillez dans ce cas retélécharger l'ensemble du dossier 'modules'")
-    os.system("pause")
+    os.system("pause>nul")
     os.exit()
+
 try:
     from modules.orga_scores import *
 except ImportError:
     print("ERREUR : Impossible de trouver un module nécessaire au bon fonctionnement du programme 'orga_scores.py'")
     print("Veuillez installer ce module à l'aide du lien ci-joint : https://drive.google.com/drive/folders/1qqgdcED7iRTbQLzQN5xmFI6rV7CamF8R?usp=sharing \net le positionnez dans le même dossier que 'pendu.py'")
     print("Cela peut aussi être causé par l'absence du fichier '__init__.py', veuillez dans ce cas retélécharger l'ensemble du dossier 'modules'")
-    os.system("pause")
+    os.system("pause>nul")
     os.exit()
+
 try:
     from modules.former_mot import *
 except ImportError:
     print("ERREUR : Impossible de trouver un module nécessaire au bon fonctionnement du programme 'former_mot.py'")
     print("Veuillez installer ce module à l'aide du lien ci-joint : https://drive.google.com/drive/folders/1qqgdcED7iRTbQLzQN5xmFI6rV7CamF8R?usp=sharing \net le positionnez dans le même dossier que 'pendu.py'")
     print("Cela peut aussi être causé par l'absence du fichier '__init__.py', veuillez dans ce cas retélécharger l'ensemble du dossier 'modules'")
-    os.system("pause")
+    os.system("pause>nul")
     os.exit()
 
 
 start = time.monotonic()
 
 print("\nBienvenue dans ce programme vous permettant de faire un pendu !") # C'est ici que tout commence !
-os.system("pause")
+#os.system("pause>nul")
 while True:
     pseudo_joueur = input("\nTout d'abord, comment vous appellez-vous ? : ")
     try:
@@ -52,16 +54,16 @@ jveux_continuer = True
 
 while jveux_continuer:
     try:
-        with codecs.open("data\Base de donnees mots francais.txt",  "r", encoding='utf-8') as mots:
+        with codecs.open("data\\Base de donnees mots francais.txt",  "r", encoding='utf-8') as mots:
             mot_random = mots.readlines()[random.randint(0,22740)] # On choisit un mot au hasard dans la base de données
     except FileNotFoundError: # On vérifie que le fichier en question est bien présent, si ce n'est pas le cas, on le redirige vers ce dernier par l'intermédiaire du lien ci-joint
         print("Le fichier 'Base de donnees mot francais.txt' est introuvable, veuillez le télécharger à l'adresse suivante : https://drive.google.com/file/d/100A0urc2MguP5uJTYKOvvAd8hV95SXpt/view?usp=sharing \net le positionnez dans le dossier 'data'")
-        os.system("pause")
+        os.system("pause>nul")
         os.exit()
     mot_random = mot_random.strip()
     mot_mystere = etoile(mot_random)
     print("\nTrès bien {0}, voici le mot mystère : '{1}' ".format(pseudo_joueur, mot_mystere), "\nEssaye de le retrouver !")
-    os.system("pause")
+    #os.system("pause>nul")
     lettres_rentrees = []
     mot_random = normaliser(mot_random) # Il faut s'assurer que le mot pris au hasard ne contiennent ni majuscules, ni caractères spéciaux
     while mot_mystere != mot_random:
@@ -70,7 +72,7 @@ while jveux_continuer:
             pendu_haut_et_court()
             print("Oh non vous avez perdu, vous voilà pendu !")
             print("Le mot mystère était : ", mot_random)
-            os.system("pause")
+            os.system("pause>nul")
             break
         touche = input("\n\nVeuillez saisir une lettre : ")
         for i in lettres_rentrees:
@@ -78,6 +80,10 @@ while jveux_continuer:
                 print("Vous avez déjà rentré cette lettre, ne soyez pas idiot !") # On vérifie que le joueur ne soit pas né de la dernière pluie
                 bete = True
                 break
+        if touche == '':
+            print("Ca sert a rien de mettre un charactère vide...")
+            bete = True
+
         if bete == True:
             continue # Si le joueur a déjà rentré cette lettre, c'est reparti pour un tour ! (de boucle)
         lettres_rentrees.append(touche)
@@ -138,15 +144,16 @@ while True:
 if alors == "O":
     enregistrer = True # Cette variable aura son importance plus tard
     try:
-        with open("data\scores.txt",  "rb") as fichier_scores:
+        with open("data\\scores.txt",  "rb") as fichier_scores:
             scores_totaux = pickle.load(fichier_scores)
     except FileNotFoundError: # On vérifie si le fichier est présent, du bon boulot en somme
-        with open("data\scores.txt", "xb") as fichier_scores: # Si le fichier n'est pas présent, et ben on le crée évidemment
+        with open("data\\scores.txt", "xb") as fichier_scores: # Si le fichier n'est pas présent, et ben on le crée évidemment
            PP = False # Celui qui arrivera à trouver l'utilité de cette variable remportera une Nintendo Switch !
-        with open("data\scores.txt", "wb") as fichier_scores:
+        with open("data\\scores.txt", "wb") as fichier_scores:
             scores_totaux = {} # On est obligé de faire ça si on ne veut pas créer de problèmes lors de la future lecture du dico par le module pickle
             pickle.dump(scores_totaux, fichier_scores)
-    with  open("data\scores.txt", "r+b") as fichier_scores:
+
+    with  open("data\\scores.txt", "r+b") as fichier_scores:
         scores_totaux = pickle.load(fichier_scores)
         try:
             if scores_totaux[pseudo_joueur] < score_joueur: # On vérifie ici si le joueur n'a pas déjà un score établi sous le même pseudo, car un dico ne peut contenir qu'une seule valeur par clé
@@ -165,8 +172,8 @@ if alors == "O":
             print("\nVoici les scores : ")
             scores_totaux = organiser(scores_totaux)
     if enregistrer:
-        with open("data\scores.txt", "wb") as fichier_scores: # On enregistre les scores qu'en cas de besoin
+        with open("data\\scores.txt", "wb") as fichier_scores: # On enregistre les scores qu'en cas de besoin
             pickle.dump(scores_totaux, fichier_scores)
 end = time.monotonic()
 print("Temps d'éxécution : ", end - start, "s")
-os.system("pause")
+os.system("pause>nul")

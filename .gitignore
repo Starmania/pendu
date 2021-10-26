@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Ne pas save les scores
+data/scores.txt
