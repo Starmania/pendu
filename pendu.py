@@ -74,7 +74,11 @@ while jveux_continuer:
             print("Le mot mystère était : ", mot_random)
             os.system("pause>nul")
             break
-        touche = input("\n\nVeuillez saisir une lettre : ")
+        touche=''
+        while len(touche)!=1 or len(touche)==len(mot_random):
+            touche = input("\n\nVeuillez saisir une lettre : ")
+            #print(len(touche))
+            #print(len(mot_random))
         for i in lettres_rentrees:
             if touche == i:
                 print("Vous avez déjà rentré cette lettre, ne soyez pas idiot !") # On vérifie que le joueur ne soit pas né de la dernière pluie
